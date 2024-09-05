@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lighthouse Bookstore</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+        }
+        .container {
+            position: relative;
+            height: 100%;
+            background: url('beacon-1.jpg') no-repeat center center;
+            background-size: cover;
+            filter: grayscale(50%);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .sandwich-icon {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        .sandwich-icon span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+        }
+        .sandwich-icon span:nth-child(1) { top: 0px; }
+        .sandwich-icon span:nth-child(2) { top: 8px; }
+        .sandwich-icon span:nth-child(3) { top: 16px; }
+        .user-icon, .cart-icon {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .search-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+        }
+        .tagline {
+            color: white;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .auth-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .auth-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .auth-form input[type="email"],
+        .auth-form input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .auth-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .auth-form button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="sandwich-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div>
+                <span class="user-icon" onclick="openAuthModal()">👤</span>
+                <a href="#" class="cart-icon">🛒</a>
+            </div>
+        </header>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search">
+            <p class="tagline">Helping You Find the Books You Thought You'd Never Get</p>
+        </div>
+    </div>
+
+    <div id="authModal" class="auth-modal">
+        <div class="auth-content">
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            <h2 id="authTitle">Sign In</h2>
+            <form id="authForm" class="auth-form">
+                <input type="email" id="email" placeholder="Your email address" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" id="authSubmit">Sign In</button>
+            </form>
+            <p id="authSwitch">Don't have an account? <a href="#" onclick="switchAuthMode()">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        let isSignUp = false;
+
+        function openAuthModal() {
+            document.getElementById('authModal').style.display = 'block';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchAuthMode() {
+            isSignUp = !isSignUp;
+            const title = document.getElementById('authTitle');
+            const submitButton = document.getElementById('authSubmit');
+            const switchText = document.getElementById('authSwitch');
+
+            if (isSignUp) {
+                title.textContent = 'Sign Up';
+                submitButton.textContent = 'Sign Up';
+                switchText.innerHTML = 'Already have an account? <a href="#" onclick="switchAuthMode()">Sign in</a>';
+            } else {
+                title.textContent = 'Sign In';
+                submitButton.textContent = 'Sign In';
+                switchText.innerHTML = 'Don\'t have an account? <a href="#" onclick="switchAuthMode()">Sign up</a>';
+            }
+        }
+
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (isSignUp) {
+                console.log('Sign up with:', email, password);
+                // Here you would typically make an API call to register the user
+            } else {
+                console.log('Sign in with:', email, password);
+                // Here you would typically make an API call to authenticate the user
+            }
+
+            closeAuthModal();
+        });
+    </script>
+</body>
+</html>
