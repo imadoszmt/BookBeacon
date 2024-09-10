@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Book, Request, Notification
 from .forms import UserRegistrationForm, BookRequestForm
 
+@ensure_csrf_cookie
 def home(request):
     return render(request, 'core/home.html')
 
@@ -13,19 +16,23 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = UserRegistrationForm()
     return render(request, 'core/register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid credentials'})
     return render(request, 'core/login.html')
 
 @login_required
@@ -42,7 +49,7 @@ def book_list(request):
     return render(request, 'core/book_list.html', {'books': books})
 
 def book_detail(request, book_id):
-    book = Book.objects.get(id=book_id)
+    book = get_object_or_404(Book, id=book_id)
     return render(request, 'core/book_detail.html', {'book': book})
 
 @login_required

@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <header class="header">
+        <div class="sandwich-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div>
+            <span class="user-icon" onclick="openAuthModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="grey" 			class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>
+            </span>
+            <a href="#" class="cart-icon">🛒</a>
+        </div>
+    </header>
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search">
+        <p class="tagline">Helping You Find the Books You Thought You'd Never Get</p>
+    </div>
+</div>
+
+<div id="authModal" class="auth-modal">
+    <div class="auth-content">
+        <span class="close" onclick="closeAuthModal()">&times;</span>
+        <h2 id="authTitle">Sign In</h2>
+        <form id="authForm" class="auth-form">
+            <input type="email" id="email" placeholder="Your email address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" id="authSubmit">Sign In</button>
+        </form>
+        <p id="authSwitch">Don't have an account? <a href="#" onclick="switchAuthMode()">Sign up</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -1,8 +1,26 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.utils.translation import gettext_lazy as _
 
 class Person(AbstractUser):
     email = models.EmailField(unique=True)
+    
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_('groups'),
+        blank=True,
+        help_text=_('The groups this user belongs to. A user will get all permissions granted to each of their groups.'),
+        related_name="person_set",
+        related_query_name="person",
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name=_('user permissions'),
+        blank=True,
+        help_text=_('Specific permissions for this user.'),
+        related_name="person_set",
+        related_query_name="person",
+    )
 
     def register_user(self):
         return self.save()
@@ -41,6 +59,9 @@ class Book(models.Model):
     stock = models.IntegerField(default=0)
     added_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+    
     def add_book(self):
         return self.save()
 
@@ -56,8 +77,7 @@ class Book(models.Model):
 
 class Request(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book_title = models.CharField(max_length=200)
-    book_author = models.CharField(max_length=200)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def add_request(self):
@@ -89,3 +109,6 @@ class Notification(models.Model):
     def send_notification(self):
         # Implement notification sending logic
         pass
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title} - {self.notification_status}"

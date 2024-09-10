@@ -10,4 +10,4 @@ class UserRegistrationForm(UserCreationForm):
 class BookRequestForm(forms.ModelForm):
     class Meta:
         model = Request
-        fields = ['book_title', 'book_author']
+        fields = ['book']
