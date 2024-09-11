@@ -1,0 +1,126 @@
+{% load static %}
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'core/img/beacon-1.jpg' %}");
+            background-size: cover; /* This makes the image cover the entire container */
+            background-repeat: no-repeat; /* Prevents repeating if the image is small */
+            background-position: center; /* Ensures the image is centered */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form p {
+            margin-bottom: 1rem;
+        }
+        form label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        form .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #45a049;
+        }
+        .signin-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .signin-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <span class="error-message">{{ form.username.errors }}</span>
+                {% endif %}
+            </p>
+            <p>
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <span class="error-message">{{ form.email.errors }}</span>
+                {% endif %}
+            </p>
+            <p>
+                <label for="id_password">Password:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <span class="error-message">{{ form.password1.errors }}</span>
+                {% endif %}
+            </p>
+            <p>
+                <label for="id_password_confirmation">Password confirmation:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <span class="error-message">{{ form.password2.errors }}</span>
+                {% endif %}
+            </p>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p class="signin-link">Already have an account? <a href="{% url 'signin' %}">Sign in</a></p>
+    </div>
+</body>
+</html>

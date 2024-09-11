@@ -1,0 +1,110 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Ensures the container spans full width and height */
+.container {
+    background-image: url("{% static 'core/img/beacon-1.jpg' %}");
+    background-size: cover; /* This makes the image cover the entire container */
+    background-repeat: no-repeat; /* Prevents repeating if the image is small */
+    background-position: center; /* Ensures the image is centered */
+    height: 100vh;  /* Full view height */
+    width: 100vw;   /* Full view width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Keeps header fixed at the top */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100; /* To keep it on top of the content */
+    width: 100%;
+}
+
+.menu-icon, .user-icon, .cart-icon {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+.cart-icon {
+    margin-left: 15px;
+}
+
+.user-icon {
+    margin-left: auto;
+}
+
+/* Adjusts the search box width */
+.search-container {
+    width: 80%;
+    max-width: 800px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+}
+
+.tagline {
+    color: white;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Keeps auth buttons aligned */
+.auth-buttons {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+}
+
+.auth-buttons a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.auth-buttons a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Fixes user greeting at the top */
+.user-greeting {
+    color: black;
+    position: absolute;
+    top: 20px;
+    right: 60px;
+}
+
+/* Adjust footer if you add one */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
