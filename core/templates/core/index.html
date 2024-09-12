@@ -208,11 +208,6 @@
                 height: 220px;
                 opacity: 1;
             }
-
-            .welcome-section {
-                margin-right: auto;
-            }
-
         </style>
     </head>
     <body>
@@ -255,20 +250,16 @@
                 {% endif %}
             </div>
 
-            <section class="welcome-section">
+            <!-- <section class="welcome-section">
                 {% if user.is_authenticated %}
                     <div class="user">Hello, {{ user.username }}!</div>
                 {% else %}
                 {% endif %}
-            </section>
+            </section> -->
 
             <!-- Search container centered in the page -->
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search">
-            </div>
-
-            <div class="tagline">
-                Helping You Find the Books You Thought You'd Never Get
+                <input type="text" class="search-input" placeholder="Helping You Find the Books You Thought You'd Never Get">
             </div>
         </div>
 

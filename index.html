@@ -11,6 +11,9 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Google Fonts - Playfair Display for the logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
     <style>
         body, html {
             margin: 0;
@@ -28,21 +31,14 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            /* justify-content: space-between; */
         }
+
         .centered-div {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
-        /* .header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        } */
 
         .header {
             padding: 20px;
@@ -51,20 +47,34 @@
             align-items: center;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #f0e6d2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
         .icon-container {
             display: flex;
-            gap: 10px; /* Adjust the gap between the icons */
+            gap: 10px;
         }
 
         .user-icon, .cart-icon {
             cursor: pointer;
-        }
-
-
-        .menu-icon, .user-icon, .cart-icon {
             font-size: 24px;
             color: white;
-            cursor: pointer;
         }
 
         .search-container {
@@ -90,7 +100,6 @@
         }
 
         .philosophy-section {
-            /* background-color: #3F2838; */
             background: rgb(20,14,26);
             background: linear-gradient(94deg, rgba(20,14,26,1) 19%, rgba(67,43,57,1) 73%, rgba(67,43,57,1) 85%);
             min-height: 100vh;
@@ -124,7 +133,6 @@
             font-size: 20px;
         }
 
-        /* Auth Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -189,18 +197,19 @@
 <body>
     <div class="hero-section">
         <header class="header">
-            <div class="menu-icon">☰</div>
+            <div class="logo-container">
+                <div class="menu-icon">☰</div>
+                <div class="logo">BookBeacon</div>
+            </div>
             <div class="icon-container">
                 <div class="user-icon" onclick="toggleAuthButtons()">👤</div>
                 <div class="cart-icon">🛒</div>
             </div>
         </header>
 
-        <div class="search-container centered-div ">
+        <div class="search-container centered-div">
             <input type="text" class="search-input" placeholder="Helping You Find the Books You Thought You'd Never Get...">
         </div>
-
-       
     </div>
 
     <section class="philosophy-section">
