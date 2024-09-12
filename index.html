@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search Landing Page</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-image: url("img/beacon-1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .menu-icon, .user-icon, .cart-icon {
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            margin-left: 15px;
+        }
+
+        .user-icon {
+            margin-left: auto;
+        }
+
+        .search-container {
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+        }
+
+        .tagline {
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .auth-buttons {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+        }
+
+        .auth-buttons a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .auth-buttons a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .user-greeting {
+            color: black;
+            position: absolute;
+            top: 20px;
+            right: 60px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="menu-icon">☰</div>
+            <div class="user-icon" onclick="toggleAuthButtons()">👤</div>
+            <div class="cart-icon">🛒</div>
+        </div>
+
+        <div id="authButtons" class="auth-buttons">
+            <a href="#" onclick="openAuthModal('signin')">Sign In</a>
+            <a href="#" onclick="openAuthModal('signup')">Sign Up</a>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search">
+        </div>
+
+        <div class="tagline">
+            Helping You Find the Books You Thought You'd Never Get
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            <h2 id="authTitle">Sign In</h2>
+            <form id="authForm">
+                <div id="signInFields">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div id="signUpFields" class="hide">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password">
+                </div>
+                <button type="submit" id="authSubmit">Sign In</button>
+            </form>
+            <p id="authSwitch">Don't have an account? <a href="#" onclick="switchAuthMode()">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    
+    <script>
+        let isSignUp = false;
+
+        function toggleAuthButtons() {
+            const authButtons = document.getElementById('authButtons');
+            authButtons.style.display = authButtons.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function openAuthModal(mode) {
+            isSignUp = mode === 'signup';
+            document.getElementById('authModal').style.display = 'block';
+            updateAuthModalContent();
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchAuthMode() {
+            isSignUp = !isSignUp;
+            updateAuthModalContent();
+        }
+
+        function updateAuthModalContent() {
+            const title = document.getElementById('authTitle');
+            const submitButton = document.getElementById('authSubmit');
+            const switchText = document.getElementById('authSwitch');
+            const signInFields = document.getElementById('signInFields');
+            const signUpFields = document.getElementById('signUpFields');
+
+            if (isSignUp) {
+                title.textContent = 'Sign Up';
+                submitButton.textContent = 'Sign Up';
+                switchText.innerHTML = 'Already have an account? <a href="#" onclick="switchAuthMode()">Sign in</a>';
+                signInFields.classList.remove('hide');
+                signUpFields.classList.remove('hide');
+            } else {
+                title.textContent = 'Sign In';
+                submitButton.textContent = 'Sign In';
+                switchText.innerHTML = 'Don\'t have an account? <a href="#" onclick="switchAuthMode()">Sign up</a>';
+                signInFields.classList.remove('hide');
+                signUpFields.classList.add('hide');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('authForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to a server
+                // For GitHub Pages, we'll just show an alert
+                alert(isSignUp ? 'Sign up successful!' : 'Sign in successful!');
+                closeAuthModal();
+            });
+        });
+    </script>
+</body>
+</html>
