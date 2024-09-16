@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-5">Our Books</h1>
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }}">
+                {% else %}
+                    <p>No cover image available</p>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">By {{ book.author }}</p>
+                    <p class="card-text">Published: {{ book.published_date }}</p>
+                    <p class="card-text">Stock: {{ book.stock }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -22,12 +22,16 @@ class User(AbstractUser):
         return True
 
 class Book(models.Model):
-    book_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
+    book_id = models.AutoField(primary_key=True)
     author = models.CharField(max_length=255)
     published_date = models.DateField()
     stock = models.IntegerField(default=0)
     added_at = models.DateTimeField(default=timezone.now)
+    cover_image = models.ImageField(upload_to='book_covers/', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
 
     def add_book(self):
         self.save()

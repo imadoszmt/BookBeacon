@@ -3,344 +3,391 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Book Search Landing Page</title>
-        {% bootstrap_css %}
-        <style>
-            body, html {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                font-family: Arial, sans-serif;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookBeacon Landing Page</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Playfair Display for the logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
 
-            /* Ensures the container spans full width and height */
-            body {
-                background-image: url("{% static 'core/img/beacon-1.jpg' %}");
-                background-size: cover; /* This makes the image cover the entire container */
-                background-repeat: no-repeat; /* Prevents repeating if the image is small */
-                background-position: center; /* Ensures the image is centered */
-            }
-            .container {
-                height: 100vh;  /* Full view height */
-                width: 100vw;   /* Full view width */
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
+        .hero-section {
+            background-image: url("{% static 'core/images/beacon-1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-            /* Keeps header fixed at the top */
-            .header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                padding: 20px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                z-index: 100; /* To keep it on top of the content */
-                width: 100%;
-            }
+        .centered-div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-            .menu-icon, .user-icon, .cart-icon {
-                font-size: 24px;
-                color: white;
-                cursor: pointer;
-            }
-            .cart-icon {
-                margin-left: 15px;
-            }
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-            .user-icon {
-                margin-left: auto;
-            }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
 
-            /* Adjusts the search box width */
-            .search-container {
-                width: 80%;
-                max-width: 800px;
-            }
+        .menu-icon {
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            margin-right: 15px;
+        }
 
-            .search-input {
-                width: 100%;
-                padding: 15px;
-                border: none;
-                border-radius: 25px;
-                font-size: 18px;
-            }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #f5f2e7;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-            .tagline {
-                color: white;
-                font-size: 18px;
-                margin-top: 20px;
-                text-align: center;
-            }
+        .icon-container {
+            display: flex;
+            gap: 10px;
+        }
 
-            /* Keeps auth buttons aligned */
-            .auth-buttons {
-                position: absolute;
-                top: 60px;
-                right: 20px;
-                background: white;
-                border-radius: 5px;
-                padding: 10px;
-                display: none;
-            }
+        .user-icon, .cart-icon {
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+        }
 
-            .auth-buttons a {
-                display: block;
-                padding: 10px;
-                text-decoration: none;
-                color: #333;
-            }
+        .search-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-            .auth-buttons a:hover {
-                background-color: #f0f0f0;
-            }
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+        }
 
-            /* Fixes user greeting at the top */
-            .user-greeting {
-                color: black;
-                position: absolute;
-                top: 20px;
-                right: 60px;
-            }
+        .tagline {
+            text-align: center;
+            margin-bottom: 50px;
+            font-style: italic;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+        }
 
-            /* Adjust footer if you add one */
-            footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                text-align: center;
-                padding: 10px;
-                background-color: rgba(0, 0, 0, 0.5);
-                color: white;
-            }
-            .animated-button {
-                position: relative;
-                display: flex;
-                align-items: center;
-                gap: 4px;
-                padding: 8px 36px;
-                border: 4px solid;
-                border-color: transparent;
-                font-size: 16px;
-                background-color: inherit;
-                border-radius: 100px;
-                font-weight: 600;
-                color: #313131;
-                box-shadow: 0 0 0 2px deeppink;
-                cursor: pointer;
-                overflow: hidden;
-                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-                }
+        .philosophy-section {
+            background: rgb(20,14,26);
+            background: linear-gradient(94deg, rgba(20,14,26,1) 19%, rgba(67,43,57,1) 73%, rgba(67,43,57,1) 85%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 50px 0;
+        }
 
-                .animated-button svg {
-                position: absolute;
-                width: 24px;
-                fill: red;
-                z-index: 9;
-                transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-                }
+        .philosophy-content {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+        }
 
-                .animated-button .arr-1 {
-                right: 16px;
-                }
+        .books-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
 
-                .animated-button .arr-2 {
-                left: -25%;
-                }
+        footer {
+            background-color: #1a0825;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
 
-                .animated-button .circle {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 20px;
-                height: 20px;
-                background-color: rgb(255, 111, 188);
-                border-radius: 50%;
-                opacity: 0;
-                transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-                }
+        footer a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 20px;
+        }
 
-                .animated-button .text {
-                position: relative;
-                z-index: 1;
-                transform: translateX(-12px);
-                transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-                }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
 
-                .animated-button:hover {
-                box-shadow: 0 0 0 12px transparent;
-                color: #313131;
-                border-radius: 12px;
-                }
+        .modal-content {
+            background-color: #2c0e44;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            color: white;
+            border-radius: 10px;
+        }
 
-                .animated-button:hover .arr-1 {
-                right: -25%;
-                }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-                .animated-button:hover .arr-2 {
-                left: 16px;
-                }
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-                .animated-button:hover .text {
-                transform: translateX(12px);
-                }
+        #authForm input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
 
-                .animated-button:hover svg {
-                fill: #212121;
-                }
+        #authForm button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4a0e44;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-                .animated-button:active {
-                scale: 0.95;
-                box-shadow: 0 0 0 4px rgb(11, 255, 235);
-                }
+        .hide {
+            display: none;
+        }
 
-                .animated-button:hover .circle {
-                width: 220px;
-                height: 220px;
-                opacity: 1;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <!-- Fixed header to remain at the top -->
-            <div class="header">
-                <div class="menu-icon">☰</div>
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 36px;
+            border: 4px solid;
+            border-color: transparent;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: #313131;
+            box-shadow: 0 0 0 2px deeppink;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: red;
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: rgb(255, 111, 188);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            box-shadow: 0 0 0 12px transparent;
+            color: #313131;
+            border-radius: 12px;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: #212121;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px rgb(11, 255, 235);
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+
+        .welcome-section {
+            margin-right: auto;
+        }
+        
+
+        .auth-buttons {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+        }
+
+        .auth-buttons a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .auth-buttons a:hover {
+            background-color: #f0f0f0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <header class="header">
+            <div class="logo-container">
+                <div class="menu-icon"><i class="fas fa-bars"></i></div>
+                <div class="logo">BookBeacon</div>
+            </div>
+            <div class="icon-container">
                 {% if user.is_authenticated %}
                     <div class="user-icon btn">
                         <a href="{% url 'logout' %}" style="color: white; text-decoration: none;">
                             <button class="animated-button">
-                            <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                              ></path>
-                            </svg>
-                            <span class="text">Logout</span>
-                            <span class="circle"></span>
-                            <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                              ></path>
-                            </svg>
-                          </button>
+                                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                                </svg>
+                                <span class="text">Logout</span>
+                                <span class="circle"></span>
+                                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                                </svg>
+                            </button>
                         </a>
                     </div>
                 {% else %}
-                    <div class="user-icon" onclick="toggleAuthButtons()">👤</div>
+                    <div class="user-icon" onclick="toggleAuthButtons()"><i class="fas fa-user"></i></div>
                 {% endif %}
-                <div class="cart-icon">🛒</div>
+                <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
             </div>
+        </header>
 
-            <!-- Auth buttons appear when clicked -->
-            <div class="auth-buttons" id="authButtons">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                    <a href="{% url 'signin' %}">Sign In</a>
-                    <a href="{% url 'signup' %}">Sign Up</a>
-                {% endif %}
-            </div>
-
-            <!-- <section class="welcome-section">
-                {% if user.is_authenticated %}
-                    <div class="user">Hello, {{ user.username }}!</div>
-                {% else %}
-                {% endif %}
-            </section> -->
-
-            <!-- Search container centered in the page -->
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Helping You Find the Books You Thought You'd Never Get">
-            </div>
-        </div>
-
-        <!-- JavaScript to toggle the auth buttons -->
-        <script>
-            function toggleAuthButtons() {
-                var authButtons = document.getElementById('authButtons');
-                authButtons.style.display = authButtons.style.display === 'none' ? 'block' : 'none';
-            }
-        </script>
-
-        <!-- Bootstrap JS -->
-        {% bootstrap_javascript %}
-    </body>
-</html>
-
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Book Request System</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                line-height: 1.6;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                background-color: #f4f4f4;
-            }
-            .container {
-                text-align: center;
-                background-color: white;
-                padding: 2rem;
-                border-radius: 5px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            h1 {
-                color: #333;
-            }
-            .auth-links {
-                margin-top: 2rem;
-            }
-            .auth-links a {
-                display: inline-block;
-                margin: 0 10px;
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                transition: background-color 0.3s ease;
-            }
-            .auth-links a:hover {
-                background-color: #0056b3;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Welcome to the Book Request System</h1>
-            <p>Find the books you're looking for or request new ones!</p>
-            
+        <!-- Auth buttons appear when clicked -->
+        <div class="auth-buttons" id="authButtons">
             {% if user.is_authenticated %}
-                <p>Hello, {{ user.username }}!</p>
-                <div class="auth-links">
-                    <a href="{% url 'logout' %}">Log Out</a>
-                </div>
+                <a href="{% url 'logout' %}">Logout</a>
             {% else %}
-                <div class="auth-links">
-                    <a href="{% url 'signin' %}">Sign In</a>
-                    <a href="{% url 'signup' %}">Sign Up</a>
-                </div>
+                <a href="{% url 'signin' %}">Sign In</a>
+                <a href="{% url 'signup' %}">Sign Up</a>
             {% endif %}
         </div>
-    </body>
-</html> -->
+
+        <div class="search-container centered-div">
+            <input type="text" class="search-input" placeholder="Helping You Find the Books You Thought You'd Never Get...">
+        </div>
+    </div>
+
+    <section class="philosophy-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 philosophy-content">
+                    <h2>Philosophy Behind</h2>
+                    <p>The BookBeacon encapsulates the essence of our bookstore, which is dedicated to helping users discover rare or hard-to-find books. Just as lighthouses or beacons have traditionally guided ships to safe harbor, we aim to guide readers to the literary treasures they seek. Our mission is to illuminate the path to exceptional literature, ensuring that every reader finds their way to the perfect book.</p>
+                </div>
+                <div class="col-md-6 books-image">
+                    <img src="{% static 'core/images/book-shelf.png' %}" alt="Set of books" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Imad Zalmat 
+            <a href="https://github.com/imadoszmt/BookBeacon" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/imad-zalmat-aa2940a9/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </p>
+    </footer>
+
+    <!-- JavaScript to toggle the auth buttons -->
+    <script>
+        function toggleAuthButtons() {
+            var authButtons = document.getElementById('authButtons');
+            authButtons.style.display = authButtons.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    {% bootstrap_javascript %}
+</body>
+</html>
