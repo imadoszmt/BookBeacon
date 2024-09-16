@@ -18,7 +18,7 @@
 
             /* Ensures the container spans full width and height */
             body {
-                background-image: url("{% static 'core/img/beacon-1.jpg' %}");
+                background-image: url("{% static 'core/images/beacon-1.jpg' %}");
                 background-size: cover; /* This makes the image cover the entire container */
                 background-repeat: no-repeat; /* Prevents repeating if the image is small */
                 background-position: center; /* Ensures the image is centered */
@@ -285,71 +285,3 @@
     </body>
 </html>
 
-
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Book Request System</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                line-height: 1.6;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                background-color: #f4f4f4;
-            }
-            .container {
-                text-align: center;
-                background-color: white;
-                padding: 2rem;
-                border-radius: 5px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            h1 {
-                color: #333;
-            }
-            .auth-links {
-                margin-top: 2rem;
-            }
-            .auth-links a {
-                display: inline-block;
-                margin: 0 10px;
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                transition: background-color 0.3s ease;
-            }
-            .auth-links a:hover {
-                background-color: #0056b3;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Welcome to the Book Request System</h1>
-            <p>Find the books you're looking for or request new ones!</p>
-            
-            {% if user.is_authenticated %}
-                <p>Hello, {{ user.username }}!</p>
-                <div class="auth-links">
-                    <a href="{% url 'logout' %}">Log Out</a>
-                </div>
-            {% else %}
-                <div class="auth-links">
-                    <a href="{% url 'signin' %}">Sign In</a>
-                    <a href="{% url 'signup' %}">Sign Up</a>
-                </div>
-            {% endif %}
-        </div>
-    </body>
-</html> -->

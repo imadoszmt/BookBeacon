@@ -7,7 +7,7 @@ body, html {
 
 /* Ensures the container spans full width and height */
 .container {
-    background-image: url("{% static 'core/img/beacon-1.jpg' %}");
+    background-image: url("{% static 'core/images/beacon-1.jpg' %}");
     background-size: cover; /* This makes the image cover the entire container */
     background-repeat: no-repeat; /* Prevents repeating if the image is small */
     background-position: center; /* Ensures the image is centered */
@@ -108,3 +108,4 @@ footer {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
 }
+

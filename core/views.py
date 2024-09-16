@@ -46,7 +46,11 @@ from django.shortcuts import render
 from .models import Book
 
 def book_list(request):
-    books = Book.objects.all()
+    query = request.GET.get('q')
+    if query:
+        books = Book.objects.filter(title__icontains=query) | Book.objects.filter(author__icontains=query)
+    else:
+        books = Book.objects.all()
     return render(request, 'core/book_list.html', {'books': books})
 # End of view
 @login_required

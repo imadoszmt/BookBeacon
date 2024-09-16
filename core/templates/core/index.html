@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookBeacon Landing Page</title>
+    <title>BookBeacon</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,14 +26,22 @@
             color: #fff;
             scroll-behavior: smooth;
         }
+        /* Newly added styles */
+        body {
+            background: linear-gradient(135deg, #1a0825 0%, #2c0e44 100%);
+            background-attachment: fixed;
+            position: relative;
+        }
+        /* End */
 
         .hero-section {
-            background-image: url("{% static 'core/images/beacon-1.jpg' %}");
-            background-size: cover;
-            background-position: center;
             height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: linear-gradient(rgba(26, 8, 37, 0.7), rgba(44, 14, 68, 0.7)), url("{% static 'core/images/beacon-1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .centered-div {
@@ -57,7 +65,7 @@
 
         .menu-icon {
             font-size: 24px;
-            color: #333;
+            color: #fdfdfdc2;
             cursor: pointer;
             margin-right: 15px;
         }
@@ -77,7 +85,7 @@
         .user-icon, .cart-icon {
             cursor: pointer;
             font-size: 24px;
-            color: #333;
+            color: #fdfdfdc2;
         }
 
         .search-container {
@@ -103,7 +111,9 @@
         }
 
         .philosophy-section {
-            background: rgb(20,14,26);
+            /* Added line */
+            background: transparent;
+            /* background: rgb(20,14,26); */
             background: linear-gradient(94deg, rgba(20,14,26,1) 19%, rgba(67,43,57,1) 73%, rgba(67,43,57,1) 85%);
             min-height: 100vh;
             display: flex;
@@ -208,8 +218,8 @@
             background-color: inherit;
             border-radius: 100px;
             font-weight: 600;
-            color: #313131;
-            box-shadow: 0 0 0 2px deeppink;
+            color: #e9e4e4;
+            box-shadow: 0 0 0 2px rgb(188, 20, 255);
             cursor: pointer;
             overflow: hidden;
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -218,7 +228,7 @@
         .animated-button svg {
             position: absolute;
             width: 24px;
-            fill: red;
+            fill: rgb(174, 0, 255);
             z-index: 9;
             transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -238,7 +248,7 @@
             transform: translate(-50%, -50%);
             width: 20px;
             height: 20px;
-            background-color: rgb(255, 111, 188);
+            background-color: rgb(171, 105, 216);
             border-radius: 50%;
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -275,7 +285,7 @@
 
         .animated-button:active {
             scale: 0.95;
-            box-shadow: 0 0 0 4px rgb(11, 255, 235);
+            box-shadow: 0 0 0 4px rgb(203, 143, 243);
         }
 
         .animated-button:hover .circle {
@@ -308,6 +318,21 @@
 
         .auth-buttons a:hover {
             background-color: #f0f0f0;
+        }
+
+        /* Handle arrangement of grid and column */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .col-md-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding-right: 15px;
+            padding-left: 15px;
         }
 
 
@@ -353,8 +378,16 @@
             {% endif %}
         </div>
 
-        <div class="search-container centered-div">
+        <!-- <div class="search-container centered-div">
             <input type="text" class="search-input" placeholder="Helping You Find the Books You Thought You'd Never Get...">
+        </div> -->
+        <div class="search-container centered-div">
+            <form method="get" action="{% url 'book_list' %}">
+                <div class="input-group">
+                    <input type="text" class="form-control search-input" name="q" placeholder="Helping You Find the Books You Thought You'd Never Get...">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -386,8 +419,5 @@
             authButtons.style.display = authButtons.style.display === 'none' ? 'block' : 'none';
         }
     </script>
-
-    <!-- Bootstrap JS -->
-    {% bootstrap_javascript %}
 </body>
 </html>
