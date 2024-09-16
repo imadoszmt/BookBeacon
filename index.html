@@ -1,9 +1,12 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookBeacon Landing Page</title>
+    <title>BookBeacon</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,14 +26,22 @@
             color: #fff;
             scroll-behavior: smooth;
         }
+        /* Newly added styles */
+        body {
+            background: linear-gradient(135deg, #1a0825 0%, #2c0e44 100%);
+            background-attachment: fixed;
+            position: relative;
+        }
+        /* End */
 
         .hero-section {
-            background-image: url('beacon-1.jpg');
-            background-size: cover;
-            background-position: center;
             height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: linear-gradient(rgba(26, 8, 37, 0.7), rgba(44, 14, 68, 0.7)), url("{% static 'core/images/beacon-1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .centered-div {
@@ -54,7 +65,7 @@
 
         .menu-icon {
             font-size: 24px;
-            color: white;
+            color: #fdfdfdc2;
             cursor: pointer;
             margin-right: 15px;
         }
@@ -62,7 +73,7 @@
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 28px;
-            color: #f0e6d2;
+            color: #f5f2e7;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
@@ -74,7 +85,7 @@
         .user-icon, .cart-icon {
             cursor: pointer;
             font-size: 24px;
-            color: white;
+            color: #fdfdfdc2;
         }
 
         .search-container {
@@ -100,7 +111,9 @@
         }
 
         .philosophy-section {
-            background: rgb(20,14,26);
+            /* Added line */
+            background: transparent;
+            /* background: rgb(20,14,26); */
             background: linear-gradient(94deg, rgba(20,14,26,1) 19%, rgba(67,43,57,1) 73%, rgba(67,43,57,1) 85%);
             min-height: 100vh;
             display: flex;
@@ -192,23 +205,189 @@
         .hide {
             display: none;
         }
+
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 36px;
+            border: 4px solid;
+            border-color: transparent;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: #e9e4e4;
+            box-shadow: 0 0 0 2px rgb(188, 20, 255);
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: rgb(174, 0, 255);
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: rgb(171, 105, 216);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            box-shadow: 0 0 0 12px transparent;
+            color: #313131;
+            border-radius: 12px;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: #212121;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px rgb(203, 143, 243);
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+
+        .welcome-section {
+            margin-right: auto;
+        }
+        
+
+        .auth-buttons {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+        }
+
+        .auth-buttons a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .auth-buttons a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Handle arrangement of grid and column */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .col-md-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+
     </style>
 </head>
 <body>
     <div class="hero-section">
         <header class="header">
             <div class="logo-container">
-                <div class="menu-icon">☰</div>
+                <div class="menu-icon"><i class="fas fa-bars"></i></div>
                 <div class="logo">BookBeacon</div>
             </div>
             <div class="icon-container">
-                <div class="user-icon" onclick="toggleAuthButtons()">👤</div>
-                <div class="cart-icon">🛒</div>
+                {% if user.is_authenticated %}
+                    <div class="user-icon btn">
+                        <a href="{% url 'logout' %}" style="color: white; text-decoration: none;">
+                            <button class="animated-button">
+                                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                                </svg>
+                                <span class="text">Logout</span>
+                                <span class="circle"></span>
+                                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                                </svg>
+                            </button>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="user-icon" onclick="toggleAuthButtons()"><i class="fas fa-user"></i></div>
+                {% endif %}
+                <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
             </div>
         </header>
 
-        <div class="search-container centered-div">
+        <!-- Auth buttons appear when clicked -->
+        <div class="auth-buttons" id="authButtons">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'signin' %}">Sign In</a>
+                <a href="{% url 'signup' %}">Sign Up</a>
+            {% endif %}
+        </div>
+
+        <!-- <div class="search-container centered-div">
             <input type="text" class="search-input" placeholder="Helping You Find the Books You Thought You'd Never Get...">
+        </div> -->
+        <div class="search-container centered-div">
+            <form method="get" action="{% url 'book_list' %}">
+                <div class="input-group">
+                    <input type="text" class="form-control search-input" name="q" placeholder="Helping You Find the Books You Thought You'd Never Get...">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -220,7 +399,7 @@
                     <p>The BookBeacon encapsulates the essence of our bookstore, which is dedicated to helping users discover rare or hard-to-find books. Just as lighthouses or beacons have traditionally guided ships to safe harbor, we aim to guide readers to the literary treasures they seek. Our mission is to illuminate the path to exceptional literature, ensuring that every reader finds their way to the perfect book.</p>
                 </div>
                 <div class="col-md-6 books-image">
-                    <img src="book-shelf.png" alt="Set of books" class="img-fluid">
+                    <img src="{% static 'core/images/book-shelf.png' %}" alt="Set of books" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -233,69 +412,12 @@
         </p>
     </footer>
 
-    <!-- Auth Modal -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeAuthModal()">&times;</span>
-            <h2 id="authTitle">Sign In</h2>
-            <form id="authForm">
-                <div id="signInFields">
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="password" name="password" placeholder="Password" required>
-                </div>
-                <div id="signUpFields" class="hide">
-                    <input type="text" name="username" placeholder="Username">
-                    <input type="password" name="confirm_password" placeholder="Confirm Password">
-                </div>
-                <button type="submit" id="authSubmit">Sign In</button>
-            </form>
-            <p id="authSwitch">Don't have an account? <a href="#" onclick="switchAuthMode()">Sign up</a></p>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS and custom script -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript to toggle the auth buttons -->
     <script>
-        let isSignUp = false;
-
         function toggleAuthButtons() {
-            document.getElementById('authModal').style.display = 'block';
+            var authButtons = document.getElementById('authButtons');
+            authButtons.style.display = authButtons.style.display === 'none' ? 'block' : 'none';
         }
-
-        function closeAuthModal() {
-            document.getElementById('authModal').style.display = 'none';
-        }
-
-        function switchAuthMode() {
-            isSignUp = !isSignUp;
-            const title = document.getElementById('authTitle');
-            const submitButton = document.getElementById('authSubmit');
-            const switchText = document.getElementById('authSwitch');
-            const signInFields = document.getElementById('signInFields');
-            const signUpFields = document.getElementById('signUpFields');
-
-            if (isSignUp) {
-                title.textContent = 'Sign Up';
-                submitButton.textContent = 'Sign Up';
-                switchText.innerHTML = 'Already have an account? <a href="#" onclick="switchAuthMode()">Sign in</a>';
-                signInFields.classList.remove('hide');
-                signUpFields.classList.remove('hide');
-            } else {
-                title.textContent = 'Sign In';
-                submitButton.textContent = 'Sign In';
-                switchText.innerHTML = 'Don\'t have an account? <a href="#" onclick="switchAuthMode()">Sign up</a>';
-                signInFields.classList.remove('hide');
-                signUpFields.classList.add('hide');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('authForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert(isSignUp ? 'Sign up successful!' : 'Sign in successful!');
-                closeAuthModal();
-            });
-        });
     </script>
 </body>
 </html>
