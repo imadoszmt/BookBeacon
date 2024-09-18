@@ -39,7 +39,7 @@ To set up BookBeacon locally, follow these steps:
 
 2. Clone the repository:
    ```
-   git clone https://github.com/yourusername/bookbeacon.git
+   git clone https://github.com/imadoszmt/BookBeacon.git
    ```
 
 3. Navigate to the project directory:
