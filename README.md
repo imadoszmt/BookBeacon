@@ -12,6 +12,16 @@ This project is part of the ALX Foundation Phase portfolio for the Full Stack So
 
 - **Author LinkedIn**: [Imad Zalmat](https://www.linkedin.com/in/imad-zalmat-aa2940a9/)
 
+## Project Prototype
+
+Here are some preview images of the BookBeacon prototype:
+
+![BookBeacon Book Catalog](https://raw.githubusercontent.com/imadoszmt/BookBeacon/main/pototype-images/book_catalog.png)
+
+![BookBeacon Philosophy](https://raw.githubusercontent.com/imadoszmt/BookBeacon/main/pototype-images/philosophy.png)
+
+![BookBeacon Homepage](https://raw.githubusercontent.com/imadoszmt/BookBeacon/main/pototype-images/homepage.png)
+
 ## Features
 
 Currently implemented:
